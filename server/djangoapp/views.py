@@ -50,7 +50,6 @@ def registration(request):
         username_exist = True
     except User.DoesNotExist:
         logger.debug(f"{username} is a new user")
-    
     if not username_exist:
         user = User.objects.create_user(
             username=username,
@@ -67,7 +66,8 @@ def registration(request):
         return JsonResponse(data)
 
 
-# Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
+# Update the `get_dealerships` render list of dealerships
+# all by default, particular state if state is passed
 def get_dealerships(request, state="All"):
     endpoint = "/fetchDealers" if state == "All" else f"/fetchDealers/{state}"
     dealerships = get_request(endpoint)
