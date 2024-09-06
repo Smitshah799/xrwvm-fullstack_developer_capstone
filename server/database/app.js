@@ -13,7 +13,7 @@ app.use(require('body-parser').urlencoded({ extended: false }));
 const reviews_data = JSON.parse(fs.readFileSync("reviews.json", 'utf8'));
 const dealerships_data = JSON.parse(fs.readFileSync("dealerships.json", 'utf8'));
 
-mongoose.connect("mongodb://mongo_db:27017/", { dbName: 'dealershipsDB' });
+mongoose.connect("mongodb://mongo_db:27017/",{'dbName':'dealershipsDB'});
 
 const Reviews = require('./review');
 const Dealerships = require('./dealership');
@@ -26,7 +26,7 @@ try {
     Dealerships.insertMany(dealerships_data.dealerships);
   });
 } catch (error) {
-  console.error('Error fetching documents:', error);
+  res.status(500).json({ error: 'Error fetching documents' });
 }
 
 // Express route to home
